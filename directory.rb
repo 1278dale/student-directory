@@ -22,3 +22,6 @@ puts "Stephen Lloyd"
 puts "Tom Groombridge"
 puts "Attila"
 puts "Anna Yanova"
+print "Overall, we have "
+print 9
+puts " great students"
