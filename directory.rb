@@ -22,6 +22,8 @@ puts "Stephen Lloyd"
 puts "Tom Groombridge"
 puts "Attila"
 puts "Anna Yanova"
+#finally, we print the total number of students
 print "Overall, we have "
+#it's important to remember that print() doesn't add new line characters
 print 9
 puts " great students"
