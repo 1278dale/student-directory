@@ -25,11 +25,21 @@ students = [
 	"Anna Yanova"
 ]
 # and then we print them.
+def print_header
 puts "The Students of my cohort at MA"
 puts "----------------"
-students.each do |student|
-	puts student
 end
-#finally, we print the total number of students
-puts "Overall, we have #{students.length} great students"
-#it's important to remember that print() doesn't add new line characters
+
+def print(names)
+names.each do |name|
+	puts name
+	end
+end
+
+def print_footer(names)
+	puts "Overall, we have #{names.length} great students"
+end
+#nothing happens until we call the methods previously mentioned (header, print students, print footer)
+print_header
+print(students)
+print_footer(students)
