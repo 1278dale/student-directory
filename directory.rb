@@ -1,42 +1,41 @@
+@students = []
+
 def print_header
 	puts "The Students of my cohort at MA"
 	puts "----------------"
 end
 
-def print(students)
+def print_students_list
 	students.each do |student|
 		puts "#{student[:name]} (#{student[:cohort]} cohort)"
 	end	
 end
 
-def print_footer(names)
-	puts "Overall, we have #{names.length} great students"
+def print_footer
+	puts "Overall, we have #{@students.length} great students"
 end
 #nothing happens until we call the methods previously mentioned (header, print students, print footer)
 
 def input_students
 	puts "Please enter the names of the students"
 	puts "To finish, just hit return twice"
-	# create an empty array
-	students = []
-	# then we get the first name
-	name = gets.chomp
+	# get the first name
+	name = STDIN.gets.chomp
 	# while the name is not empty, repeat this code
 	while !name.empty? do
 	# add the student hash to the array
-	students << {:name => name, :cohort => :october}
+	add_student(name, :november)
 	puts "Now we have #{students.length} students"
 	# get another name from the user
-	name = gets.chomp
-end
-# return the array of students
-students
+	name = STDIN.gets.chomp
+	end
 end
 
 def print_menu
 	puts "1. Input the students"
 	puts "2. Show the students"
 	puts "3. Save the list to students.csv"
+	puts "4. Load the list from students.csv"
 	puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -57,6 +56,32 @@ def save_students
 	end
 	file.close
 end
+
+def add_student(name, cohort)
+	@students << {:name => name, :cohort => cohort.to_sym}
+end
+
+def load_students(filename = "students.csv")
+	file = File.open(filename, "r")
+	file.readlines.each do |line|
+		name, cohort = line.chomp.split(',')
+		add_student(name, cohort)
+	end
+	file.close
+end
+
+def try_load_students
+	filename = ARGV.first
+	return if filename.nil?
+	if File.exists?(filename)
+		load_students(filename)
+		puts "Loaded #{@students.length} from #{filename}"
+	else
+		puts "Sorry, #{filename} doesn't exist."
+		exit
+	end
+end
+
 
 def process(selection)
 	case selection
@@ -79,4 +104,5 @@ def interactive_menu
 	end
 end
 
+try_load_students
 interactive_menu
